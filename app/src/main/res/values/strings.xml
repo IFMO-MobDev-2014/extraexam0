@@ -9,4 +9,6 @@
     <string name="counter_example">6</string>
 
     <string name="add_build_action">Add new build</string>
+
+    <string name="name_hint">New build name</string>
 </resources>

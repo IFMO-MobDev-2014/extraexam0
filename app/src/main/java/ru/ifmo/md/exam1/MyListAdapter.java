@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class MyListAdapter extends ArrayAdapter<Build> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = layoutInflater.inflate(R.layout.list_item, parent, false);
 
@@ -39,6 +40,18 @@ public class MyListAdapter extends ArrayAdapter<Build> {
 
         TextView counter = (TextView) rowView.findViewById(R.id.counter);
         counter.setText(objects.get(position).getCounter());
+
+        Button button = (Button) rowView.findViewById(R.id.button);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                objects.remove(position);
+                notifyDataSetChanged();
+
+            }
+        });
 
         return rowView;
     }
