@@ -85,6 +85,24 @@ public class MainActivity extends ActionBarActivity implements AppResultReceiver
     }
 
     void update() {
+        builds = new ArrayList<>();
+        Cursor cursor = getContentResolver().query(BuilderContentProvider.BUILDS_CONTENT_URI, null, null ,null ,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            Build build = new Build(name);
+
+            build.setLastVerdict(cursor.getString(2));
+
+            build.setCounter(cursor.getInt(3));
+
+            builds.add(build);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        adapter = new MyListAdapter(this, builds.size(), builds);
 
     }
 
