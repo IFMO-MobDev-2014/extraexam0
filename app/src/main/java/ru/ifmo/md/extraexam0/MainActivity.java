@@ -56,9 +56,14 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
                 ((TextView) view.findViewById(android.R.id.text1)).setText(getString(R.string.buildPrefix)
                         + cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_ID)) + " " + cursor.getString(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_NAME)));
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-                if (status == DBAdapter.BUILD_NOT_STARTED || status == DBAdapter.BUILD_RUNNING) {
+                if (status == DBAdapter.BUILD_NOT_STARTED) {
                     ((TextView) view.findViewById(android.R.id.text2)).setText(getString(R.string.created_at)
                             + sdf.format(new Date(cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_TIME_CREATED)) * 1000)));
+                } else if (status == DBAdapter.BUILD_RUNNING) {
+                    long delta = System.currentTimeMillis() / 1000
+                            - cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_TIME_START));
+                    ((TextView) view.findViewById(android.R.id.text2)).setText(getString(R.string.running)
+                            + " " + delta + "s");
                 } else if (status == DBAdapter.BUILD_SUCCESS) {
                     long delta = cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_TIME_FINISHED))
                             - cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_TIME_START));
@@ -67,8 +72,8 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
                 } else if (status == DBAdapter.BUILD_FAILED) {
                     long delta = cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_TIME_FINISHED))
                             - cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_TIME_START));
-                    ((TextView) view.findViewById(android.R.id.text2)).setText(getString(R.string.failed_in)
-                            + delta + "s");
+                    ((TextView) view.findViewById(android.R.id.text2)).setText(getString(R.string.failed_in) + " " +
+                            +delta + "s");
                 }
             }
         });
@@ -105,8 +110,6 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
         super.onListItemClick(l, v, position, id);
         Toast.makeText(this, "Long tap to delete", Toast.LENGTH_SHORT).show();
     }
-
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

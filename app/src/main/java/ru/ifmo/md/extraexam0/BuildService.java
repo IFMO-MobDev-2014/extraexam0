@@ -85,13 +85,15 @@ public class BuildService extends Service {
     Random r = new Random();
 
     private void runBuild(Build b) {
-        int time = Math.abs(r.nextInt() % 5000 + 1000);
+        int time = Math.abs(r.nextInt() % 5) + 1;
         boolean success = r.nextBoolean();
         Build running = b.run();
-        getContentResolver().update(BuildsContentProvider.BUILDS_URI, running.toContentValues(), null, null);
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException ignored) {
+        for (int i = 0; i < time; ++i) {
+            getContentResolver().update(BuildsContentProvider.BUILDS_URI, running.toContentValues(), null, null);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ignored) {
+            }
         }
         if (success) {
             Build s = running.succeed();

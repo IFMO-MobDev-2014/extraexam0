@@ -13,5 +13,6 @@
     <string name="title_activity_add_build">AddBuildActivity</string>
     <string name="name">Name</string>
     <string name="add">Add</string>
+    <string name="running">"Running: "</string>
 
 </resources>
