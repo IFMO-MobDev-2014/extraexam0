@@ -1,4 +1,4 @@
-package lyamkin.com.extraexam0;
+package ru.ifmo.md.extraexam0;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
