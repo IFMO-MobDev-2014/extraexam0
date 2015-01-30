@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 
 import java.util.ArrayList;
@@ -56,7 +57,12 @@ public class MainActivity extends ActionBarActivity implements AppResultReceiver
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
+            EditText name = (EditText) findViewById(R.id.new_name);
+            String newName= name.getText().toString();
 
+            Intent intent = new Intent(this, CreateService.class);
+            intent.putExtra("number", newName);
+            startService(intent);
         }
 
         return super.onOptionsItemSelected(item);

@@ -1,6 +1,7 @@
 package ru.ifmo.md.exam1;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class MyListAdapter extends ArrayAdapter<Build> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = objects.get(position).getNumber();
+                context.getContentResolver().delete(BuilderContentProvider.BUILDS_CONTENT_URI, "number = ?", new String[] {name});
                 objects.remove(position);
                 notifyDataSetChanged();
 

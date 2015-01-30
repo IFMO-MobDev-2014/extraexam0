@@ -4,20 +4,20 @@ package ru.ifmo.md.exam1;
  * Created by daria on 30.01.15.
  */
 public class Build {
-    private int number;
+    private String number;
     private int counter;
     private String lastVerdict;
 
 
-    public Build(String name, int number) {
+    public Build(String number) {
         this.number = number;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
