@@ -36,7 +36,9 @@ class MyService extends IntentService("MyService") {
           // if it's running it can fail
           if (i.status.isInstanceOf[Running]) {
             if (Random.nextInt(100) < 3) {
-              mWrapper.replaceBuild(i.version, i.name, new Build(i.name, i.version, i.startTimeSec, i.buildLengthSec, FailedBuild()))
+              mWrapper.replaceBuild(i.version, i.name, new Build(i.name, i.version, i.startTimeSec,
+                (System.currentTimeMillis() / 1000).toInt - i.startTimeSec,
+                FailedBuild()))
             }
             // if it's ended, so it is
             else if ((i.startTimeSec + i.buildLengthSec) < (System.currentTimeMillis() / 1000L).toInt) {
