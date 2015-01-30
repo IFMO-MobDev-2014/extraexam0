@@ -54,7 +54,7 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
                                                 : Color.WHITE
                 );
                 ((TextView) view.findViewById(android.R.id.text1)).setText(getString(R.string.buildPrefix)
-                        + cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_ID)) + " " + cursor.getString(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_NAME)));
+                        + cursor.getLong(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_NUMBER)) + " " + cursor.getString(cursor.getColumnIndex(DBAdapter.KEY_BUILDS_NAME)));
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
                 if (status == DBAdapter.BUILD_NOT_STARTED) {
                     ((TextView) view.findViewById(android.R.id.text2)).setText(getString(R.string.created_at)

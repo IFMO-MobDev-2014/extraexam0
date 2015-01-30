@@ -17,6 +17,7 @@ public class DBAdapter {
     //Tracks
     public static final String TABLE_NAME_BUILDS = "builds";
     public static final String KEY_BUILDS_NAME = "name";
+    public static final String KEY_BUILDS_NUMBER = "number";
     public static final String KEY_BUILDS_STATUS = "build_status";
     public static final String KEY_BUILDS_TIME_CREATED = "time_created";
     public static final String KEY_BUILDS_TIME_START = "time_start";
@@ -25,6 +26,7 @@ public class DBAdapter {
     public static final String CREATE_TABLE_TRACKS = "CREATE TABLE " + TABLE_NAME_BUILDS + " ("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " //will also be a build number
             + KEY_BUILDS_NAME + " STRING, "
+            + KEY_BUILDS_NUMBER + " INTEGER, "
             + KEY_BUILDS_STATUS + " STRING NOT NULL, "
             + KEY_BUILDS_TIME_CREATED + " INTEGER NOT NULL, "
             + KEY_BUILDS_TIME_START + " INTEGER, "
@@ -85,6 +87,11 @@ public class DBAdapter {
     }
 
     public long addBuild(ContentValues contentValues) {
+        String name = contentValues.getAsString(DBAdapter.KEY_BUILDS_NAME);
+        Cursor c = getBuilds(DBAdapter.KEY_BUILDS_NAME + "='"+name+"'");
+        c.moveToFirst();
+        int number = c.getCount() + 1;
+        contentValues.put(DBAdapter.KEY_BUILDS_NUMBER, number);
         return db.insert(TABLE_NAME_BUILDS, null, contentValues);
     }
 
@@ -98,7 +105,7 @@ public class DBAdapter {
 
     public Cursor getBuilds(String where) {
         return db.query(TABLE_NAME_BUILDS,
-                new String[]{KEY_ID, KEY_BUILDS_STATUS, KEY_BUILDS_TIME_CREATED, KEY_BUILDS_TIME_FINISHED, KEY_BUILDS_TIME_START, KEY_BUILDS_NAME},
+                new String[]{KEY_ID, KEY_BUILDS_STATUS, KEY_BUILDS_TIME_CREATED, KEY_BUILDS_TIME_FINISHED, KEY_BUILDS_TIME_START, KEY_BUILDS_NAME, KEY_BUILDS_NUMBER},
                 where, null, null, null, KEY_BUILDS_TIME_CREATED + " DESC");
     }
 
