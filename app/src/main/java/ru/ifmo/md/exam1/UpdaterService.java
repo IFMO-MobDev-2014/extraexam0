@@ -35,17 +35,23 @@ public class UpdaterService extends IntentService {
         String status;
         if (!stat) {
             status = "Successful";
-            receiver.send(AppResultReceiver.OK, Bundle.EMPTY);
+
         } else
         {
             status = "Failed";
-            receiver.send(AppResultReceiver.ERROR, Bundle.EMPTY);
+
         }
         ContentValues contentValues = new ContentValues();
         contentValues.put(BuilderContentProvider.BUILD_NUMBER, number);
         contentValues.put(BuilderContentProvider.BUILD_COUNTER, counter);
         contentValues.put(BuilderContentProvider.BUILD_STATUS, status);
         getContentResolver().insert(BuilderContentProvider.BUILDS_CONTENT_URI, contentValues);
+
+        if (!stat) {
+            receiver.send(AppResultReceiver.OK, Bundle.EMPTY);
+        } else {
+            receiver.send(AppResultReceiver.ERROR, Bundle.EMPTY);
+        }
 
     }
 }
