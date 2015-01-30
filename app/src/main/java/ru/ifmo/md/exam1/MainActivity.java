@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -25,7 +26,11 @@ public class MainActivity extends ActionBarActivity implements AppResultReceiver
     BuilderContentProvider contentProvider;
     List<Build> builds;
 
+    Random random = new Random();
+
     private AppResultReceiver mReceiver;
+
+    int currentPos;
 
 
     MyListAdapter adapter;
@@ -47,6 +52,12 @@ public class MainActivity extends ActionBarActivity implements AppResultReceiver
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+
+    void choosePosition() {
+        currentPos = random.nextInt(builds.size());
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,13 +83,25 @@ public class MainActivity extends ActionBarActivity implements AppResultReceiver
     public void onReceiveResult(int resultCode, Bundle data) {
         switch (resultCode) {
             case AppResultReceiver.OK:
-                // something after succesful execute
+                choosePosition();
+                Intent intent = new Intent(this, UpdaterService.class);
+                intent.putExtra("number", builds.get(currentPos).getNumber());
+                intent.putExtra("receiver", mReceiver);
+                intent.putExtra("counter", builds.get(currentPos).getCounter());
+                startService(intent);
+
                 break;
             case AppResultReceiver.ERROR:
-                // something after fail
+                choosePosition();
+                intent = new Intent(this, UpdaterService.class);
+                intent.putExtra("number", builds.get(currentPos).getNumber());
+                intent.putExtra("receiver", mReceiver);
+                intent.putExtra("counter", builds.get(currentPos).getCounter());
+                startService(intent);
+
                 break;
             case AppResultReceiver.UPDATE:
-                // status = running
+                builds.get(currentPos).setLastVerdict("Running");
                 break;
         }
         update();
@@ -103,7 +126,6 @@ public class MainActivity extends ActionBarActivity implements AppResultReceiver
         cursor.close();
 
         adapter = new MyListAdapter(this, builds.size(), builds);
-
     }
 
 }

@@ -4,6 +4,9 @@ package ru.ifmo.md.exam1;
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.ResultReceiver;
+
 import java.util.Random;
 
 /**
@@ -12,6 +15,8 @@ import java.util.Random;
 
 public class UpdaterService extends IntentService {
 
+    ResultReceiver receiver;
+
     public UpdaterService() {
         super("UpdaterService");
 
@@ -19,6 +24,8 @@ public class UpdaterService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        receiver = intent.getParcelableExtra("receiver");
+
         String number = intent.getStringExtra("number");
         int counter = intent.getIntExtra("counter", -1);
         getContentResolver().delete(BuilderContentProvider.BUILDS_CONTENT_URI, "number = ?", new String[]{number});
@@ -28,7 +35,12 @@ public class UpdaterService extends IntentService {
         String status;
         if (!stat) {
             status = "Successful";
-        } else status = "Failed";
+            receiver.send(AppResultReceiver.OK, Bundle.EMPTY);
+        } else
+        {
+            status = "Failed";
+            receiver.send(AppResultReceiver.ERROR, Bundle.EMPTY);
+        }
         ContentValues contentValues = new ContentValues();
         contentValues.put(BuilderContentProvider.BUILD_NUMBER, number);
         contentValues.put(BuilderContentProvider.BUILD_COUNTER, counter);
