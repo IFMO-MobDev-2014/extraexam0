@@ -23,6 +23,10 @@
             android:name=".BuilderContentProvider">
 
             </provider>
+
+        <service android:name=".UpdaterService" >
+
+        </service>
     </application>
 
 </manifest>

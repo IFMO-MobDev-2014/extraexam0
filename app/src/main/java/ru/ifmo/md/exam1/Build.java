@@ -4,23 +4,13 @@ package ru.ifmo.md.exam1;
  * Created by daria on 30.01.15.
  */
 public class Build {
-    private String name;
     private int number;
     private int counter;
     private String lastVerdict;
 
 
     public Build(String name, int number) {
-        this.name = name;
         this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getNumber() {

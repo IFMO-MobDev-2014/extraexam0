@@ -7,4 +7,6 @@
     <string name="name_example">Meow</string>
     <string name="status_example">Failed</string>
     <string name="counter_example">6</string>
+
+    <string name="add_build_action">Add new build</string>
 </resources>

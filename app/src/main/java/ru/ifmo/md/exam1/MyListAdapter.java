@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +33,6 @@ public class MyListAdapter extends ArrayAdapter<Build> {
 
         TextView number = (TextView) rowView.findViewById(R.id.number);
         number.setText("#" + objects.get(position).getNumber());
-
-        TextView name = (TextView) rowView.findViewById(R.id.name);
-        name.setText(objects.get(position).getName());
 
         TextView status = (TextView) rowView.findViewById(R.id.status);
         status.setText(objects.get(position).getLastVerdict());
