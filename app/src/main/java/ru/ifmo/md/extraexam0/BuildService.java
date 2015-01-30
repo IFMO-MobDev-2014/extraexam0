@@ -94,10 +94,10 @@ public class BuildService extends Service {
         } catch (InterruptedException ignored) {
         }
         if (success) {
-            Build s = b.succeed();
+            Build s = running.succeed();
             getContentResolver().update(BuildsContentProvider.BUILDS_URI, s.toContentValues(), null, null);
         } else {
-            Build f = b.fail();
+            Build f = running.fail();
             getContentResolver().update(BuildsContentProvider.BUILDS_URI, f.toContentValues(), null, null);
         }
     }

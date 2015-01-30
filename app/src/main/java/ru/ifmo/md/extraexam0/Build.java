@@ -29,7 +29,7 @@ public class Build {
     }
 
     public Build run() {
-        return new Build(id, name, DBAdapter.BUILD_RUNNING, timeCreated, System.currentTimeMillis()/1000, System.currentTimeMillis()/1000);
+        return new Build(id, name, DBAdapter.BUILD_RUNNING, timeCreated, timeFinished, System.currentTimeMillis()/1000);
     }
 
     public ContentValues toContentValues() {
