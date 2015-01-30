@@ -1,6 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">extraexam0</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Team City</string>
+
+    <string name="number_example">#15</string>
+    <string name="name_example">Meow</string>
+    <string name="status_example">Failed</string>
+    <string name="counter_example">6</string>
 </resources>
