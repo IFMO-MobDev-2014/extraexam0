@@ -76,6 +76,7 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
 
     @Override
     public void onReceiveResult(int resultCode, Bundle data) {
+        update();
         switch (resultCode) {
             case AppResultReceiver.OK:
                 choosePosition();
@@ -84,6 +85,7 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
                 intent.putExtra("receiver", mReceiver);
                 intent.putExtra("counter", builds.get(currentPos).getCounter());
                 startService(intent);
+
 
                 break;
             case AppResultReceiver.ERROR:
@@ -97,9 +99,10 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
                 break;
             case AppResultReceiver.UPDATE:
                 builds.get(currentPos).setLastVerdict("Running");
+                update();
                 break;
         }
-        update();
+
     }
 
     void update() {

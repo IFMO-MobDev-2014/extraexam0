@@ -28,7 +28,7 @@ public class CreateService extends IntentService {
         contentValues.put(BuilderContentProvider.BUILD_COUNTER, counter);
         contentValues.put(BuilderContentProvider.BUILD_STATUS, status);
         getContentResolver().insert(BuilderContentProvider.BUILDS_CONTENT_URI, contentValues);
-        receiver.send(AppResultReceiver.OK, Bundle.EMPTY);
+        receiver.send(AppResultReceiver.ADD, Bundle.EMPTY);
     }
 }
 
