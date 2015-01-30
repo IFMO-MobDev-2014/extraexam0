@@ -1,9 +1,8 @@
-extraexam0
+extraexam0 ('teamcity')
 =====
 
- - Items list with date and full edit (+ListView and ContentProvider, as usual): 6
-- TBD
-- TBD
- - TBD
+ - Build list with date, number, status and add/remove (+ListView and ContentProvider, as usual): 7
+ - Start/stop: +3
+ - History: +5
 
-Deadline: 17:XX
+Deadline: 17:15
