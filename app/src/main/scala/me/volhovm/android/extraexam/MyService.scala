@@ -38,15 +38,14 @@ class MyService extends IntentService("MyService") {
             if (Random.nextInt(100) < 3) {
               mWrapper.replaceBuild(i.version, i.name, new Build(i.name, i.version, i.startTimeSec, i.buildLengthSec, FailedBuild()))
             }
-          }
-          // if it's ended, so it is
-          else if (i.status.isInstanceOf[Running] && (i.startTimeSec + i.buildLengthSec) > (System.currentTimeMillis() / 1000L).toInt)
-          {
-            Log.d(this.toString, "Making it complete")
-            mWrapper.replaceBuild(i.version, i.name, new Build(i.name, i.version, i.startTimeSec, i.buildLengthSec, SuccessBuild()))
+            // if it's ended, so it is
+            else if ((i.startTimeSec + i.buildLengthSec) < (System.currentTimeMillis() / 1000L).toInt) {
+              Log.d(this.toString, "Making it complete")
+              mWrapper.replaceBuild(i.version, i.name, new Build(i.name, i.version, i.startTimeSec, i.buildLengthSec, SuccessBuild()))
+            }
           }
           // if it's ended, rerun it
-          else if (!i.status.isInstanceOf[Running] && Random.nextInt(100) < 6)
+          else if (Random.nextInt(100) < 6)
             mWrapper.putBuild(i.next)
 
           receiver.send(0, null)
