@@ -55,9 +55,11 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
         final Context context = this;
 
 
+
     }
 
     public void onClick(View view) {
+
         EditText name = (EditText) findViewById(R.id.new_name);
         final String newName = name.getText().toString();
 
@@ -65,6 +67,7 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
         intent.putExtra("number", newName);
         intent.putExtra("receiver", mReceiver);
         startService(intent);
+        update();
     }
 
     void choosePosition() {
