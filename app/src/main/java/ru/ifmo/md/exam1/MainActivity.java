@@ -57,7 +57,7 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
 
     }
 
-    void onClick() {
+    public void onClick(View view) {
         EditText name = (EditText) findViewById(R.id.new_name);
         final String newName = name.getText().toString();
 
