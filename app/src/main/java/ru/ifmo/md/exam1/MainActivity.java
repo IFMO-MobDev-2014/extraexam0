@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Debug;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 
 import java.util.ArrayList;
@@ -46,6 +48,8 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
         setContentView(R.layout.activity_main);
         contentProvider = new BuilderContentProvider();
         contentProvider.onCreate();
+
+        adapter = new MyListAdapter(this, builds.size(), builds);
         mReceiver = new AppResultReceiver(new Handler());
         mReceiver.setReceiver(this);
 
@@ -54,6 +58,9 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
         button = (Button) findViewById(R.id.button2);
         final Context context = this;
 
+        ListView list = (ListView) findViewById(R.id.list);
+        list.setAdapter(adapter);
+
 
 
     }
@@ -61,12 +68,13 @@ public class MainActivity extends Activity implements AppResultReceiver.Receiver
     public void onClick(View view) {
 
         EditText name = (EditText) findViewById(R.id.new_name);
-        final String newName = name.getText().toString();
+        String newName = name.getText().toString();
 
-        Intent intent = new Intent(this, CreateService.class);
+        Intent intent = new Intent("my_action");
+        intent.setClassName(this, ".CreateService");
         intent.putExtra("number", newName);
-        intent.putExtra("receiver", mReceiver);
         startService(intent);
+
         update();
     }
 

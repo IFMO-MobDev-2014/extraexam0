@@ -27,6 +27,14 @@
         <service android:name=".UpdaterService" >
 
         </service>
+
+        <service android:name=".CreateService" >
+            <intent-filter>
+                <action android:name="my_action" />
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>

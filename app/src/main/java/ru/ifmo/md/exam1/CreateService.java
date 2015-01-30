@@ -4,21 +4,20 @@ import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 
 /**
  * Created by daria on 30.01.15.
  */
 public class CreateService extends IntentService {
 
-    AppResultReceiver receiver;
-
-    public CreateService(String name) {
-        super(name);
+    public CreateService() {
+        super(".CreateService");
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        receiver = intent.getParcelableExtra("receiver");
+    public void onHandleIntent(Intent intent) {
+
 
         String number = intent.getStringExtra("number");
         int counter = 0;
@@ -28,7 +27,6 @@ public class CreateService extends IntentService {
         contentValues.put(BuilderContentProvider.BUILD_COUNTER, counter);
         contentValues.put(BuilderContentProvider.BUILD_STATUS, status);
         getContentResolver().insert(BuilderContentProvider.BUILDS_CONTENT_URI, contentValues);
-        receiver.send(AppResultReceiver.ADD, Bundle.EMPTY);
     }
 }
 
